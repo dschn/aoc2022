@@ -6,3 +6,4 @@ elves_input.chunk { |x| x == "" }.reject { |bool,_| bool == true }.each do |bool
 end
 
 puts elves_calories.max
+puts elves_calories.sort.last(3).sum
