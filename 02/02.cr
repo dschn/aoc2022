@@ -19,3 +19,23 @@ outcome_scores = {
 }
 
 puts input.sum { |game| outcome_scores[game.join] + scores[game[1]] }
+
+score = input.sum do |game|
+  opponent = game[0]
+  desired_outcome = game[1]
+  outcomes = outcome_scores.keys.select { |k| k[0].to_s == opponent }
+
+  match = ""
+  match = case desired_outcome
+  when "X" # need loss
+    outcomes.find { |outcome| outcome_scores[outcome] == 0 }
+  when "Y" # need draw
+    outcomes.find { |outcome| outcome_scores[outcome] == 3 }
+  when "Z" # need win
+    outcomes.find { |outcome| outcome_scores[outcome] == 6 }
+  end.as(String)
+
+  outcome_scores[match] + scores[match[1].to_s]
+end
+
+puts score
